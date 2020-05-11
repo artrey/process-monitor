@@ -2,7 +2,7 @@
 
 ## Requirements:
 
-`pip install psutils`
+`pip install psutil`
 
 ## Help:
 
