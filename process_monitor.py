@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
             if args.std_output:
                 print(table_row([
-                    f'{mhz} MHz', get_size(mem.vms), get_size(mem.uss),
+                    f'{mhz:.2f} MHz', get_size(mem.vms), get_size(mem.uss),
                     get_size(if_sent),
                     get_size(if_recv)
                 ]))
