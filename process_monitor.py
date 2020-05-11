@@ -45,9 +45,9 @@ if __name__ == '__main__':
 
         if args.std_output:
             print('Process name:', p.name())
-            print(table_row(['CPU', 'Virtual Mem', 'Used Mem', 'Network Sent', 'Network Recv']))
+            print(table_row(['Time', 'CPU', 'Virtual Mem', 'Used Mem', 'Network Sent', 'Network Recv']))
         else:
-            append_row(output_file, ['CPU, MHz', 'Virtual Mem, bytes', 'Used Mem, bytes',
+            append_row(output_file, ['Date', 'Time', 'CPU, MHz', 'Virtual Mem, bytes', 'Used Mem, bytes',
                                      'Network Sent, bytes', 'Network Recv, bytes'])
 
         while True:
@@ -59,15 +59,18 @@ if __name__ == '__main__':
                 if_recv = if_counters.bytes_recv - if_counters_prev.bytes_recv
 
             if_counters_prev = if_counters
+            dt = datetime.datetime.now()
 
             if args.std_output:
                 print(table_row([
-                    f'{mhz:.2f} MHz', get_size(mem.vms), get_size(mem.uss),
-                    get_size(if_sent),
-                    get_size(if_recv)
+                    dt.strftime('%d.%m.%Y %H:%M:%S'), f'{mhz:.2f} MHz', get_size(mem.vms),
+                    get_size(mem.uss), get_size(if_sent), get_size(if_recv)
                 ]))
             else:
-                append_row(output_file, [mhz, mem.vms, mem.uss, if_sent, if_recv])
+                append_row(output_file, [
+                    dt.strftime('%d.%m.%Y'), dt.strftime('%H:%M:%S'),
+                    mhz, mem.vms, mem.uss, if_sent, if_recv
+                ])
 
             time.sleep(1)
 
